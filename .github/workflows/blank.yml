@@ -1,0 +1,16 @@
+name: Công
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Run Ubuntu VPS
+      run: |
+        echo "Your VPS is running!"
+        sudo apt update -y
+        sudo apt install -y wget curl git
+        echo "VPS ready. Connect via web shell or ngrok."
+        sleep 21600  # Giữ VPS chạy 6 tiếng (6h = 21600s)
