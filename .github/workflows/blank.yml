@@ -1,4 +1,4 @@
-echo: Công
+name: Free VPS via GitHub + Ngrok SSH
 
 on:
   workflow_dispatch:
@@ -7,18 +7,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Run Ubuntu VPS
-      run: |
-        sudo apt update -y
-        sudo apt install -y wget unzip openssh-server
-        echo "✅ Cài Ngrok..."
-        wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-        unzip ngrok-stable-linux-amd64.zip
-        chmod +x ./ngrok
-        echo "✅ Khởi động SSH..."
-        sudo service ssh start
-        echo "✅ Kết nối Ngrok..."
-        ./ngrok authtoken <34O1nrTEXBWv24xzoaPjp7LU8Jv_Eb4Xo1bXvzxDKz75XrfS>
-        ./ngrok tcp 22 &
-        echo "✅ VPS đang hoạt động, vui lòng đợi vài giây..."
-        sleep 21600  # giữ VPS 6 tiếng
+      - name: Run Ubuntu VPS
+        run: |
+          sudo apt update -y
+          sudo apt install -y wget unzip openssh-server
+          echo "✅ Cài Ngrok..."
+          wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
+          chmod +x ./ngrok
+          sudo service ssh start
+          ./ngrok authtoken 34O1nrTEXBWv24xzoaPjp7LU8Jv_Eb4Xo1bXvzxDKz75XrfS
+          ./ngrok tcp 22 &
+          sleep 21600
