@@ -1,4 +1,4 @@
-name: Công
+echo: Công
 
 on:
   workflow_dispatch:
@@ -9,8 +9,16 @@ jobs:
     steps:
     - name: Run Ubuntu VPS
       run: |
-        echo "Your VPS is running!"
         sudo apt update -y
-        sudo apt install -y wget curl git
-        echo "VPS ready. Connect via web shell or ngrok."
-        sleep 21600  # Giữ VPS chạy 6 tiếng (6h = 21600s)
+        sudo apt install -y wget unzip openssh-server
+        echo "✅ Cài Ngrok..."
+        wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+        unzip ngrok-stable-linux-amd64.zip
+        chmod +x ./ngrok
+        echo "✅ Khởi động SSH..."
+        sudo service ssh start
+        echo "✅ Kết nối Ngrok..."
+        ./ngrok authtoken <34O1nrTEXBWv24xzoaPjp7LU8Jv_Eb4Xo1bXvzxDKz75XrfS>
+        ./ngrok tcp 22 &
+        echo "✅ VPS đang hoạt động, vui lòng đợi vài giây..."
+        sleep 21600  # giữ VPS 6 tiếng
